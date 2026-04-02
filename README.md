@@ -196,6 +196,3 @@ JobSherpa scrapes publicly available data at runtime. The quality of certain sec
 
 > Some platforms (Glassdoor, AmbitionBox) are behind login walls or rate limits. Salary and interview data for niche companies, newer roles, or less-discussed employers may be limited or unavailable.
 
----
-
-## Built for Google Gen AI Hackathon 2026
