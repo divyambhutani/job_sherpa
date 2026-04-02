@@ -1,0 +1,13 @@
+google-adk==1.28.0
+pymupdf
+langchain
+langchain-community
+pypdf
+scrapling[fetchers]
+curl_cffi
+requests
+weasyprint
+matplotlib
+jinja2
+aiohttp
+python-dotenv

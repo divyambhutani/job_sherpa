@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  /* ── Reset & Base ─────────────────────────────────────────────── */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:       #0f0f1a;
+    --card:     #1a1a2e;
+    --blue:     #4285F4;
+    --green:    #34A853;
+    --red:      #EA4335;
+    --gold:     #FBBC05;
+    --purple:   #9c27b0;
+    --text:     #ffffff;
+    --text-sec: #a0a0c0;
+    --border:   #2a2a3e;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* ── Page Break ──────────────────────────────────────────────── */
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 12mm 14mm;
+    background: var(--bg);
+    page-break-after: always;
+    position: relative;
+  }
+  .page:last-child { page-break-after: avoid; }
+
+  /* ── Header (every page except cover) ───────────────────────── */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+  }
+  .page-header .brand {
+    font-size: 11px;
+    color: var(--blue);
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .page-header .candidate-mini {
+    font-size: 9px;
+    color: var(--text-sec);
+  }
+  .page-header .logo-mini {
+    height: 22px;
+  }
+
+  /* ── Section Title ───────────────────────────────────────────── */
+  .section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--blue);
+    border-left: 3px solid var(--blue);
+    padding-left: 8px;
+    margin-bottom: 12px;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── Card ────────────────────────────────────────────────────── */
+  .card {
+    background: var(--card);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+
+  /* ── Chart Image ─────────────────────────────────────────────── */
+  .chart-img {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+  .chart-half {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  /* ── Skill Pills ─────────────────────────────────────────────── */
+  .pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .pill {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: bold;
+  }
+  .pill-green  { background: #34A85322; color: var(--green); border: 1px solid var(--green); }
+  .pill-red    { background: #EA433522; color: var(--red);   border: 1px solid var(--red);   }
+  .pill-gold   { background: #FBBC0522; color: var(--gold);  border: 1px solid var(--gold);  }
+
+  /* ── Shining Points Card ─────────────────────────────────────── */
+  .shining-card {
+    background: linear-gradient(135deg, #1a1a2e, #1f1f38);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .shining-title {
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .shining-item {
+    color: var(--text);
+    font-size: 10px;
+    margin-bottom: 5px;
+    padding-left: 4px;
+  }
+
+  /* ── Question Cards ──────────────────────────────────────────── */
+  .q-grid {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .q-card {
+    flex: 1;
+    min-width: 150px;
+    background: var(--card);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .q-card-title {
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .q-card-title.technical  { color: var(--blue);   }
+  .q-card-title.behavioural{ color: var(--purple);  }
+  .q-card-title.curveball  { color: var(--gold);    }
+  .q-item {
+    font-size: 9px;
+    color: var(--text);
+    margin-bottom: 5px;
+    padding-left: 8px;
+    border-left: 2px solid var(--border);
+  }
+
+  /* ── Link Audit ──────────────────────────────────────────────── */
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 9px;
+  }
+  .link-status { font-size: 12px; min-width: 16px; }
+  .link-url    { color: var(--blue); flex: 1; word-break: break-all; }
+  .link-note   { color: var(--text-sec); flex: 1; }
+  .action-item {
+    color: var(--text-sec);
+    font-size: 9px;
+    padding: 3px 0 3px 12px;
+    border-left: 2px solid var(--red);
+    margin-bottom: 4px;
+  }
+
+  /* ── Cover Page ──────────────────────────────────────────────── */
+  .cover-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 297mm;
+    background: var(--bg);
+    text-align: center;
+    padding: 20mm;
+  }
+  .cover-logo { height: 48px; margin-bottom: 16px; }
+  .cover-app-name {
+    font-size: 13px;
+    color: var(--blue);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .cover-candidate {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .cover-role {
+    font-size: 16px;
+    color: var(--text-sec);
+    margin-bottom: 4px;
+  }
+  .cover-company {
+    font-size: 14px;
+    color: var(--blue);
+    margin-bottom: 32px;
+  }
+  .cover-dial { width: 240px; margin: 0 auto 24px; }
+  .cover-date {
+    font-size: 9px;
+    color: var(--text-sec);
+    margin-top: 32px;
+  }
+
+  /* ── Negotiation Tips ────────────────────────────────────────── */
+  .tip {
+    font-size: 9px;
+    color: var(--text);
+    padding: 4px 8px;
+    background: #FBBC0511;
+    border-left: 2px solid var(--gold);
+    margin-bottom: 4px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* ── Two column layout ───────────────────────────────────────── */
+  .two-col { display: flex; gap: 10px; }
+  .col      { flex: 1; }
+
+  /* ── JD Flag ─────────────────────────────────────────────────── */
+  .jd-flag {
+    font-size: 9px;
+    color: var(--gold);
+    padding: 4px 8px;
+    background: #FBBC0511;
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
+
+  /* ── Source URL pill ─────────────────────────────────────────── */
+  .source-pill {
+    display: inline-block;
+    font-size: 8px;
+    padding: 2px 7px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-sec);
+    margin: 2px;
+  }
+
+  .label {
+    font-size: 9px;
+    color: var(--text-sec);
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .value {
+    font-size: 11px;
+    color: var(--text);
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- PAGE 1 — COVER                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="page cover-page">
+  {% if logo_base64 %}
+  <img class="cover-logo" src="data:image/png;base64,{{ logo_base64 }}" alt="JobSherpa">
+  {% endif %}
+  <div class="cover-app-name">{{ app_name }}</div>
+
+  <div class="cover-candidate">{{ candidate_name }}</div>
+  <div class="cover-role">{{ target_role }}</div>
+  <div class="cover-company">@ {{ target_company }}</div>
+
+  <div class="cover-dial">
+    <img class="chart-img" src="data:image/png;base64,{{ chart_score_dial }}" alt="Match Score">
+  </div>
+
+  <div class="cover-date">Generated on {{ generated_at }} &nbsp;·&nbsp; Role Type: {{ detected_role }}</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- PAGE 2 — MATCH ANALYSIS                                            -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="brand">{{ app_name }}</span>
+    <span class="candidate-mini">{{ candidate_name }} · {{ target_role }} @ {{ target_company }}</span>
+    {% if logo_base64 %}<img class="logo-mini" src="data:image/png;base64,{{ logo_base64 }}" alt="">{% endif %}
+  </div>
+
+  <div class="section-title">Match Analysis</div>
+
+  <!-- Shining Points FIRST — confidence before gaps -->
+  {% if shining_points %}
+  <div class="shining-card">
+    <div class="shining-title">🌟 Your Shining Points</div>
+    {% for point in shining_points[:6] %}
+    <div class="shining-item">✦ {{ point }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- JD Flags -->
+  {% if jd_flags.is_kitchen_sink_jd %}
+  <div class="jd-flag">⚠️ Kitchen Sink JD Detected — Focus on the top skills listed first</div>
+  {% endif %}
+  {% for flag in jd_flags.contradictions_found %}
+  <div class="jd-flag">⚠️ {{ flag }}</div>
+  {% endfor %}
+
+  <div class="two-col">
+    <!-- Radar Chart -->
+    <div class="col">
+      <img class="chart-img" src="data:image/png;base64,{{ chart_radar }}" alt="Skill Radar">
+    </div>
+
+    <!-- Skills Breakdown -->
+    <div class="col">
+      <div class="card">
+        <div class="label">✅ Must-Have — Matched</div>
+        <div class="pills-row">
+          {% for s in skills_must_matched %}<span class="pill pill-green">{{ s }}</span>{% endfor %}
+          {% if not skills_must_matched %}<span style="color:var(--text-sec);font-size:9px">None</span>{% endif %}
+        </div>
+
+        <div class="label">❌ Must-Have — Missing</div>
+        <div class="pills-row">
+          {% for s in skills_must_missing %}<span class="pill pill-red">{{ s }}</span>{% endfor %}
+          {% if not skills_must_missing %}<span style="color:var(--green);font-size:9px">All covered ✓</span>{% endif %}
+        </div>
+
+        <div class="label">⭐ Bonus Skills (you have, JD didn't ask)</div>
+        <div class="pills-row">
+          {% for s in skills_bonus %}<span class="pill pill-gold">{{ s }}</span>{% endfor %}
+          {% if not skills_bonus %}<span style="color:var(--text-sec);font-size:9px">None detected</span>{% endif %}
+        </div>
+      </div>
+
+      <!-- ATS Score -->
+      <div class="card">
+        <div class="label">ATS Score</div>
+        <img class="chart-img" src="data:image/png;base64,{{ chart_ats }}" alt="ATS Score">
+        {% for w in ats_warnings %}
+        <div style="color:var(--gold);font-size:9px;margin-top:4px">⚠️ {{ w }}</div>
+        {% endfor %}
+      </div>
+
+      <!-- Experience Fit -->
+      <div class="card">
+        <div class="label">Experience Fit</div>
+        <div class="value">
+          {% if experience_fit.verdict == "good_fit" %}✅ Good Fit
+          {% elif experience_fit.verdict == "underqualified" %}⚠️ Slightly Underqualified
+          {% else %}ℹ️ Overqualified{% endif %}
+        </div>
+        <div style="font-size:9px;color:var(--text-sec)">{{ experience_fit.reasoning }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- PAGE 3 — INTERVIEW ROADMAP                                          -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="brand">{{ app_name }}</span>
+    <span class="candidate-mini">{{ candidate_name }} · {{ target_role }} @ {{ target_company }}</span>
+    {% if logo_base64 %}<img class="logo-mini" src="data:image/png;base64,{{ logo_base64 }}" alt="">{% endif %}
+  </div>
+
+  <div class="section-title">Interview Roadmap</div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div class="two-col">
+      <div>
+        <div class="label">Total Rounds</div>
+        <div class="value">{{ total_rounds }}</div>
+      </div>
+      <div>
+        <div class="label">Typical Timeline</div>
+        <div class="value">{{ typical_timeline }}</div>
+      </div>
+      <div>
+        <div class="label">Data Confidence</div>
+        <div class="value" style="color:
+          {% if interview_confidence == 'HIGH' %}var(--green)
+          {% elif interview_confidence == 'FAIR' %}var(--gold)
+          {% else %}var(--red){% endif %}">
+          {{ interview_confidence }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timeline Chart -->
+  <img class="chart-img" src="data:image/png;base64,{{ chart_timeline }}" alt="Interview Timeline">
+
+  <!-- Per-round details -->
+  {% for round in rounds %}
+  <div class="card" style="margin-top:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-weight:bold;font-size:11px;color:var(--blue)">
+        Round {{ round.round_number }} — {{ round.name }}
+      </span>
+      <span style="font-size:9px;color:var(--text-sec)">{{ round.format }} · {{ round.duration }}</span>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="label">What They Evaluate</div>
+        <div style="font-size:9px;color:var(--text);margin-bottom:6px;">{{ round.what_they_evaluate }}</div>
+      </div>
+      <div>
+        <div class="label">How to Prepare</div>
+        <div style="font-size:9px;color:var(--text);margin-bottom:6px;">{{ round.how_to_prepare }}</div>
+      </div>
+    </div>
+    {% if round.red_flags_to_avoid %}
+    <div style="font-size:9px;color:var(--red);">🚩 Avoid: {{ round.red_flags_to_avoid }}</div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- PAGE 4 — EXPECTED QUESTIONS                                         -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="brand">{{ app_name }}</span>
+    <span class="candidate-mini">{{ candidate_name }} · {{ target_role }} @ {{ target_company }}</span>
+    {% if logo_base64 %}<img class="logo-mini" src="data:image/png;base64,{{ logo_base64 }}" alt="">{% endif %}
+  </div>
+
+  <div class="section-title">Expected Questions</div>
+  <div style="font-size:9px;color:var(--text-sec);margin-bottom:12px;">
+    Top 5–6 questions per round · For full question banks see source links on the last page
+  </div>
+
+  {% for rq in questions_by_round %}
+  <div style="margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:bold;color:var(--text);margin-bottom:6px;">
+      {{ rq.round_name }}
+    </div>
+    <div class="q-grid">
+      {% if rq.technical %}
+      <div class="q-card">
+        <div class="q-card-title technical">🔧 Technical</div>
+        {% for q in rq.technical %}
+        <div class="q-item">{{ q }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if rq.behavioural %}
+      <div class="q-card">
+        <div class="q-card-title behavioural">💬 Behavioural</div>
+        {% for q in rq.behavioural %}
+        <div class="q-item">{{ q }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if rq.curveball %}
+      <div class="q-card">
+        <div class="q-card-title curveball">🎲 Curveball</div>
+        {% for q in rq.curveball %}
+        <div class="q-item">{{ q }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- PAGE 5 — SALARY INTELLIGENCE (only if data exists)                 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+{% set has_salary = india_band.min or india_band.median or global_band.min %}
+{% if has_salary and india_band.min != 'N/A' %}
+<div class="page">
+  <div class="page-header">
+    <span class="brand">{{ app_name }}</span>
+    <span class="candidate-mini">{{ candidate_name }} · {{ target_role }} @ {{ target_company }}</span>
+    {% if logo_base64 %}<img class="logo-mini" src="data:image/png;base64,{{ logo_base64 }}" alt="">{% endif %}
+  </div>
+
+  <div class="section-title">Salary Intelligence</div>
+
+  <!-- Salary Range Chart -->
+  <img class="chart-img" src="data:image/png;base64,{{ chart_salary }}" alt="Salary Ranges">
+
+  <div class="two-col" style="margin-top:12px;">
+    <!-- CTC Breakdown -->
+    <div class="col">
+      <div class="card">
+        <div class="label">CTC Breakdown — India</div>
+        <img class="chart-img" src="data:image/png;base64,{{ chart_ctc }}" alt="CTC Breakdown">
+        {% if india_joining_bonus %}
+        <div style="font-size:9px;color:var(--gold);margin-top:4px;">
+          💰 Joining Bonus: {{ india_joining_bonus }}
+        </div>
+        {% endif %}
+        {% if india_negotiability %}
+        <div style="font-size:9px;color:var(--text-sec);margin-top:4px;">
+          🤝 Negotiability: {{ india_negotiability }}
+        </div>
+        {% endif %}
+        {% if india_estimate %}
+        <div style="font-size:10px;color:var(--green);margin-top:6px;font-weight:bold;">
+          Your Estimate: {{ india_estimate }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Negotiation Tips -->
+    <div class="col">
+      <div class="card">
+        <div class="label">Negotiation Tips</div>
+        {% for tip in negotiation_tips %}
+        <div class="tip">💡 {{ tip }}</div>
+        {% endfor %}
+        {% if not negotiation_tips %}
+        <div style="color:var(--text-sec);font-size:9px;">No specific tips available.</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- NO DATA PAGE REMOVED — agent always generates interview questions -->
+
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- PAGE 6 — SOURCES & CONFIDENCE                                       -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="brand">{{ app_name }}</span>
+    <span class="candidate-mini">{{ candidate_name }} · {{ target_role }} @ {{ target_company }}</span>
+    {% if logo_base64 %}<img class="logo-mini" src="data:image/png;base64,{{ logo_base64 }}" alt="">{% endif %}
+  </div>
+
+  <div class="section-title">Sources &amp; Confidence</div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div class="label">Data Freshness</div>
+    <div style="font-size:10px;color:var(--text);">{{ data_freshness }}</div>
+  </div>
+
+  <!-- Confidence Chart -->
+  <img class="chart-img" src="data:image/png;base64,{{ chart_confidence }}" alt="Confidence">
+
+  <!-- Source URLs -->
+  {% if source_urls %}
+  <div style="margin-top:14px;">
+    <div class="label">Sources Used</div>
+    <div style="margin-top:6px;">
+      {% for url in source_urls %}
+      <span class="source-pill">{{ url }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Footer -->
+  <div style="position:absolute;bottom:12mm;left:14mm;right:14mm;
+              border-top:1px solid var(--border);padding-top:8px;
+              display:flex;justify-content:space-between;">
+    <span style="font-size:8px;color:var(--text-sec);">
+      Generated by {{ app_name }} · {{ generated_at }}
+    </span>
+    <span style="font-size:8px;color:var(--text-sec);">
+      Data sourced from public platforms · For personal use only
+    </span>
+  </div>
+</div>
+
+</body>
+</html>
