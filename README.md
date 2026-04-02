@@ -10,11 +10,11 @@ Upload your resume (PDF) and a job description (text or URL). JobSherpa's AI age
 
 | ADK Web UI | Match Analysis |
 |---|---|
-| ![ADK Web UI](assets/screenshots/adk_ui.png) | ![Match Analysis](assets/screenshots/match_making_analysis.png) |
+| ![ADK Web UI](assets/adk_ui.png) | ![Match Analysis](assets/match_making_analysis.png) |
 
 | Interview Roadmap | Expected Questions |
 |---|---|
-| ![Interview Roadmap](assets/screenshots/expected_interview_rounds.png) | ![Expected Questions](assets/screenshots/expected_questions.png) |
+| ![Interview Roadmap](assets/expected_interview_rounds.png) | ![Expected Questions](assets/expected_questions.png) |
 
 ---
 
