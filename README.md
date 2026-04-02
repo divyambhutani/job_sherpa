@@ -56,3 +56,19 @@ Open [http://localhost:8000](http://localhost:8000), upload your resume, and pas
 | `GOOGLE_CLOUD_PROJECT` | GCP project ID |
 | `SERPER_API_KEY` | Serper.dev API key |
 | `GOOGLE_GENAI_USE_VERTEXAI` | Set to `TRUE` |
+
+---
+
+## Data Availability
+
+JobSherpa scrapes publicly available data at runtime. Output quality varies by section:
+
+| Section | Status |
+|---|---|
+| Match Analysis & ATS Score | Always available — derived from resume + JD |
+| Shining Points | Always available — derived from resume |
+| Interview Rounds & Questions | Best-effort — scraped from Glassdoor, Reddit, LeetCode Discuss. Falls back to JD-based AI generation if no data found |
+| Salary Intelligence | Best-effort — scraped from AmbitionBox, Levels.fyi, Glassdoor. Shows N/A for niche companies or roles with no public data |
+| Link Validation | Implemented but not yet wired into the agent — section will be empty in current reports |
+
+> Glassdoor and AmbitionBox are behind Cloudflare and login walls. Salary and interview data for smaller companies or newer roles may be limited.
