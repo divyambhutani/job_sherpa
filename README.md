@@ -183,4 +183,19 @@ All results are filtered to the last 3 years for freshness.
 
 ---
 
+## Data Availability Notice
+
+JobSherpa scrapes publicly available data at runtime. The quality of certain sections depends on what is actually accessible on the web at the time of the request:
+
+| Section | Accuracy |
+|---|---|
+| Match Analysis / ATS Score | Always available — derived directly from resume + JD |
+| Shining Points | Always available — derived directly from resume |
+| Interview Rounds & Questions | Best-effort — scraped from Glassdoor, Reddit, LeetCode Discuss. Falls back to AI-generated questions based on the JD if no real data is found |
+| Salary Intelligence | Best-effort — scraped from AmbitionBox, Levels.fyi, Glassdoor. May show N/A if the company/role has no public data |
+
+> Some platforms (Glassdoor, AmbitionBox) are behind login walls or rate limits. Salary and interview data for niche companies, newer roles, or less-discussed employers may be limited or unavailable.
+
+---
+
 ## Built for Google Gen AI Hackathon 2026
