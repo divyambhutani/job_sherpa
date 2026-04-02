@@ -25,10 +25,10 @@ Upload your resume and paste a job description (or a URL). JobSherpa's AI agent:
 ![ADK Web UI](docs/screenshots/adk_ui.png)
 
 ### Match Analysis — Radar Chart, Skill Pills, ATS Score
-![Match Analysis](docs/screenshots/match_analysis.png)
+![Match Analysis](docs/screenshots/match_making_analysis.png)
 
 ### Interview Roadmap — Visual Timeline + Round Details
-![Interview Roadmap](docs/screenshots/interview_roadmap.png)
+![Interview Roadmap](docs/screenshots/expected_interview_rounds.png)
 
 ### Expected Questions — Per Round, Per Type
 ![Expected Questions](docs/screenshots/expected_questions.png)
